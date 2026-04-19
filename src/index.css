@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-*: initial;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --color-primary: #111827;
+  --color-secondary: #4B5563;
+}
+
+@utility container {
+  margin-inline: auto;
+}
+
+.slick-dots .slick-active div{
+  background: transparent;
+  border: 1px solid #111827;
+}
+
+.slick-slide:focus {
+  outline: none;
+}
+
+.slick-slide div:focus {
+  outline: none;
+}
+ul.slick-dots li{
+  margin: 0 -3px;
+}
