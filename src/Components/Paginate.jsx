@@ -6,8 +6,8 @@ import { MdOutlineNavigateNext } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const Paginate = ({ itemsPerPage }) => {
-   const productItem = useSelector((state) => state.Allproducts.value)
-  
+  const productItem = useSelector((state) => state.Allproducts.value);
+
   const items = productItem || [];
 
   function Items({ currentItems }) {
@@ -18,6 +18,7 @@ const Paginate = ({ itemsPerPage }) => {
             <ProductsCard
               key={item.id}
               id={item.id}
+              productData={item}
               image={item.thumbnail}
               title={item.title}
               price={item.price}

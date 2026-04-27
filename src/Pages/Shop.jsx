@@ -14,14 +14,14 @@ const Shop = () => {
   const [loading, setLoading] = useState(true);
   const [selectedCtegory, setSelectedCategory] = useState([]);
 
- const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   // fetch API
   async function getAllProducts() {
     try {
       const res = await axios.get("https://dummyjson.com/products");
       setShopProducts(res.data.products);
-      dispatch(productReducer(res.data.products))
+      dispatch(productReducer(res.data.products));
       setLoading(false);
     } catch (err) {
       console.log("Failed to fetch", err);
@@ -43,10 +43,10 @@ const Shop = () => {
     const filterItems = shopProducts.filter(
       (catItems) => catItems.category === items,
     );
-    dispatch(categoryReducer(filterItems))
-    setSelectedCategory(items)
+    dispatch(categoryReducer(filterItems));
+    setSelectedCategory(items);
   };
-console.log(shopProducts)
+  console.log(shopProducts);
   return (
     <>
       <Container>
@@ -57,7 +57,12 @@ console.log(shopProducts)
               Categories
             </h4>
             <ul className="text-[14px] text-secondary leading-9 border-b-2 pb-6 border-[#e3e5e9] ">
-              <li onClick={()=> dispatch(productReducer(shopProducts))} className="cursor-pointer">All Products</li>
+              <li
+                onClick={() => dispatch(productReducer(shopProducts))}
+                className="cursor-pointer"
+              >
+                All Products
+              </li>
               {categories.map((items, idx) => (
                 <li
                   onClick={() => handleCategory(items)}
@@ -65,9 +70,9 @@ console.log(shopProducts)
                   className="flex items-center gap-3 capitalize cursor-pointer"
                 >
                   <div className="w-5 h-5 border rounded flex items-center justify-center">
-                    {
-                      selectedCtegory === items && <IoIosCheckbox className="w-8 h-8 "/>
-                    }
+                    {selectedCtegory === items && (
+                      <IoIosCheckbox className="w-8 h-8 " />
+                    )}
                   </div>
                   <span>{items}</span>
                 </li>

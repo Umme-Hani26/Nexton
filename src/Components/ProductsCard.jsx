@@ -4,6 +4,8 @@ import { FaStar } from "react-icons/fa";
 import { CiDiscount1 } from "react-icons/ci";
 import { AiOutlineShopping } from "react-icons/ai";
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { cartReducer } from "../Slices/ProductSlice";
 
 const ProductsCard = ({
   image,
@@ -15,23 +17,25 @@ const ProductsCard = ({
   rating,
   rvw,
   id,
+  productData,
 }) => {
-
   let navigate = useNavigate();
+  const dispatch = useDispatch();
+ 
   const handleProductDetails = () => {
-     
-    navigate(`/productdetails/${id}`)
-
+    navigate(`/productdetails/${id}`);
   };
 
   const handleAddToCart = () => {
-    console.log("clicked")
-  }
+    dispatch(cartReducer(productData));
+     navigate('/cart')
+  };
   return (
     <>
-      <div  className="w-77.25 mb-16 cursor-pointer">
+      <div className="w-77.25 mb-16 cursor-pointer">
         <div className="relative">
-          <img onClick={handleProductDetails}
+          <img
+            onClick={handleProductDetails}
             src={image}
             alt=""
             className="w-full object-cover border border-[#f5f5f5] rounded-2xl"
@@ -42,7 +46,10 @@ const ProductsCard = ({
               {discount}% Discount
             </h4>
           </div>
-          <div onClick={handleAddToCart} className="absolute top-2 right-2 w-9 h-9 bg-[#f3f3f3] rounded-full flex items-center justify-center">
+          <div
+            onClick={handleAddToCart}
+            className="absolute top-2 right-2 w-9 h-9 bg-[#f3f3f3] rounded-full flex items-center justify-center"
+          >
             <AiOutlineShopping />
           </div>
         </div>
