@@ -21,14 +21,13 @@ const ProductsCard = ({
 }) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
- 
+
   const handleProductDetails = () => {
     navigate(`/productdetails/${id}`);
   };
 
   const handleAddToCart = () => {
     dispatch(cartReducer(productData));
-     navigate('/cart')
   };
   return (
     <>

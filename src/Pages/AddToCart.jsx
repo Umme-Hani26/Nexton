@@ -29,8 +29,8 @@ const AddToCart = () => {
             <Flex className="px-10 py-6 justify-between items-center mb-10">
               <div className="flex items-center gap-5 w-62.5">
                 <img src={item.thumbnail} alt="" className="w-13.5" />
-                <h4>{item.title}</h4>
-                {/* {`${title.slice(0,10)}....`} */}
+                <h4>{`${item.title.slice(0,10)}....`}</h4>
+                {/*  */}
               </div>
               <h2>${item.price}</h2>
 
