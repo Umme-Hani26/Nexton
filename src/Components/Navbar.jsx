@@ -5,8 +5,10 @@ import { CiSearch } from "react-icons/ci";
 import { LuUserRound } from "react-icons/lu";
 import { LuShoppingCart } from "react-icons/lu";
 import { Link, NavLink } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
 
 const Navbar = () => {
+  const data = useSelector((state) => state.Allproducts.cart);
   return (
     <>
       <Container>
@@ -32,7 +34,12 @@ const Navbar = () => {
             </NavLink>
 
             <LuUserRound />
-            <LuShoppingCart />
+            <NavLink to={"cart"}>
+              <div className="relative">
+              <LuShoppingCart />
+              <span className="absolute -top-2 -right-3 flex items-center justify-center w-5 h-5 rounded-full bg-red-500 text-white text-[13px]">{data.length}</span>
+            </div>
+            </NavLink>
           </div>
         </div>
       </Container>
