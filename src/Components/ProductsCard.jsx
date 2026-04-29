@@ -6,6 +6,7 @@ import { AiOutlineShopping } from "react-icons/ai";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { cartReducer } from "../Slices/ProductSlice";
+import { Bounce, toast } from "react-toastify";
 
 const ProductsCard = ({
   image,
@@ -21,13 +22,44 @@ const ProductsCard = ({
 }) => {
   let navigate = useNavigate();
   const dispatch = useDispatch();
+  const data = useSelector((state) => state.Allproducts.cart);
 
   const handleProductDetails = () => {
     navigate(`/productdetails/${id}`);
   };
 
+  const notify = (matchItem) => {
+    matchItem == undefined
+      ? toast.success("product successfully added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        })
+      : toast.warn("product already added", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+  };
+
   const handleAddToCart = () => {
-    dispatch(cartReducer(productData));
+    const matchItem = data.find((item) => item.id === id);
+    if (!matchItem) {
+      dispatch(cartReducer(productData));
+    }
+    notify(matchItem);
   };
   return (
     <>

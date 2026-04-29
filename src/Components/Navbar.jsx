@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { LuUserRound } from "react-icons/lu";
 import { LuShoppingCart } from "react-icons/lu";
 import { Link, NavLink } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const data = useSelector((state) => state.Allproducts.cart);
