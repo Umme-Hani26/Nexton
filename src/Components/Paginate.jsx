@@ -18,6 +18,7 @@ const Paginate = ({ itemsPerPage }) => {
             <ProductsCard
               key={item.id}
               id={item.id}
+              
               productData={item}
               image={item.thumbnail}
               title={item.title}

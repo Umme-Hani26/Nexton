@@ -57,7 +57,7 @@ const ProductsCard = ({
   const handleAddToCart = () => {
     const matchItem = data.find((item) => item.id === id);
     if (!matchItem) {
-      dispatch(cartReducer(productData));
+      dispatch(cartReducer({...productData, Quantity: 1}));
     }
     notify(matchItem);
   };
