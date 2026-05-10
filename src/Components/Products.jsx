@@ -20,17 +20,19 @@ const Products = ({ title1, title2, data = [] }) => {
 
         <Slider {...settings}>
           {data.map((item) => (
-             
             <div key={item.id} className="justify-center px-2">
               <ProductsCard
                 id={item.id}
-                image={item.image}
+                image={item.thumbnail}
                 title={item.title}
                 price={item.price}
                 category={item.category}
-                oldPrice={item.oldPrice}
+                oldPrice={(
+                  item.price /
+                  (1 - item.discountPercentage / 100)
+                ).toFixed(2)}
                 rating={item.rating}
-                rvw={item.rvw}
+                rvw={item.stock}
                 discount={item.discount}
               />
             </div>

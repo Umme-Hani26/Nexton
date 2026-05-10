@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import BreadCrumb from "../Components/BreadCrumb";
 import Container from "../Components/Container";
-import product1 from "../assets/product-1.png";
-import product2 from "../assets/product-2.png";
-import product3 from "../assets/product-3.png";
-import watchimage from "../assets/watchimage.png";
 import { FaStar } from "react-icons/fa6";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag4Line } from "react-icons/ri";
@@ -15,85 +11,76 @@ import ProductsCard from "../Components/ProductsCard";
 import Products from "../Components/Products";
 import axios from "axios";
 import { useParams } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  cartReducer,
+  incrementReducer,
+  decrementReducer,
+} from "../Slices/ProductSlice";
+
 const ProductDetails = () => {
   let { id } = useParams();
 
   const [shopProducts, setShopProducts] = useState([]);
   const [images, setImages] = useState([]);
   const [productReview, setProductReview] = useState([]);
-  console.log(shopProducts);
-  async function getAllProducts() {
-    try {
-      const res = await axios.get(`https://dummyjson.com/products/${id}`);
-      setShopProducts(res.data);
-      setImages(res.data.images);
-      setProductReview(res.data.reviews);
-    } catch (err) {
-      console.log("Failed to fetch", err);
+  const [recommendations, setRecommendations] = useState([]);
+
+  // ✅ FIXED: use stable id, not shopProducts.id
+  const cartItem = useSelector((state) =>
+    state.Allproducts.cart.find((item) => item.id === Number(id)),
+  );
+
+  const handleAddToCart = () => {
+    if (!cartItem) {
+      dispatch(
+        cartReducer({
+          ...shopProducts,
+          Quantity: 1,
+        }),
+      );
+
+      toast.success("Successfully added to cart 🛒");
+    } else {
+      toast.warn("Already in cart ⚠️");
     }
-  }
+  };
+  const quantity = cartItem?.Quantity || 1;
 
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    const getAllProducts = async () => {
+      try {
+        const res = await axios.get(`https://dummyjson.com/products/${id}`);
+        setShopProducts(res.data);
+        setImages(res.data.images);
+        setProductReview(res.data.reviews);
+        const recRes = await axios.get("https://dummyjson.com/products");
 
-  const recommendations = [
-    {
-      id: 1,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 2,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 3,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 4,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 5,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-  ];
+        setRecommendations(recRes.data.products);
+      } catch (err) {
+        console.log("Failed to fetch", err);
+      }
+    };
+    getAllProducts();
+  }, [id]);
+  const dispatch = useDispatch();
+
+  // ✅ INCREMENT
+  const handleIncrement = () => {
+    dispatch(incrementReducer(Number(id)));
+  };
+
+  // ✅ DECREMENT
+  const handleDecrement = () => {
+    dispatch(decrementReducer(Number(id)));
+  };
+
+  const price = shopProducts?.price || 0;
+  const discount = shopProducts?.discountPercentage || 0;
+
+  const originalPrice = (price / (1 - discount / 100)).toFixed(2);
+  const totalPrice = (price * quantity).toFixed(2);
 
   return (
     <div>
@@ -125,11 +112,10 @@ const ProductDetails = () => {
               </div>
               <div className="flex flex-col items-end">
                 <h4 className="text-[24px] font-semibold text-primary">
-                  ${shopProducts.price}
+                  ${price}
                 </h4>
                 <h4 className="text-[14px] font-medium line-through text-secondary">
-                  $ {(shopProducts.price /
-                    (1 - shopProducts.discountPercentage / 100)).toFixed(2)}
+                  ${originalPrice}
                 </h4>
               </div>
             </div>
@@ -158,24 +144,33 @@ const ProductDetails = () => {
             <div className="mt-8 flex items-center">
               <div className="px-3 py-2 bg-[#f3f3f3] w-27.5 rounded-full flex justify-between items-center">
                 <h4 className="w-6 h-6 rounded-full  flex items-center justify-center bg-white border border-[#d6d6d6]">
-                  <AiOutlineMinus />
+                  <AiOutlineMinus onClick={handleDecrement} />
                 </h4>
-                <h4 className="text-[16px] font-medium text-secondary">1</h4>
+                <h4 className="text-[16px] font-medium text-secondary">
+                  {" "}
+                  {quantity}
+                </h4>
                 <h4 className="w-6 h-6 rounded-full  flex items-center justify-center bg-white border border-[#d6d6d6]">
-                  <AiOutlinePlus />
+                  <AiOutlinePlus onClick={handleIncrement} />
                 </h4>
               </div>
               <div className="px-8 py-4.5 rounded-full bg-primary w-44.5 flex items-center justify-center gap-2">
                 <RiShoppingBag4Line className="text-white" />
-                <h4 className="text-white text-[16px] font-medium">
-                  Add to cart
-                </h4>
+
+                <button
+                  className="text-white text-[16px] font-medium"
+                  onClick={handleAddToCart}
+                >
+                  Add to Cart
+                </button>
               </div>
             </div>
             <div className="mt-8 ">
               <div className="flex justify-between">
-                <h4 className="text-[16px] text-secondary">$169.99 x 1</h4>
-                <h4 className="text-[16px] text-secondary">$169.99</h4>
+                <h4 className="text-[16px] text-secondary">
+                  ${price} x {quantity}
+                </h4>
+                <h4 className="text-[16px] text-secondary">${totalPrice}</h4>
               </div>
               <div className="flex justify-between border-b border-[#dfdfdf] pb-4">
                 <h4 className="text-[16px] text-secondary">Tax estimate</h4>
@@ -186,7 +181,7 @@ const ProductDetails = () => {
                   Total
                 </h4>
                 <h4 className="text-[16px] font-semibold text-primary">
-                  $169.99
+                  ${totalPrice}
                 </h4>
               </div>
             </div>

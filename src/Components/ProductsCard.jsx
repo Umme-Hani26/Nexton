@@ -54,13 +54,28 @@ const ProductsCard = ({
         });
   };
 
-  const handleAddToCart = () => {
-    const matchItem = data.find((item) => item.id === id);
-    if (!matchItem) {
-      dispatch(cartReducer({...productData, Quantity: 1}));
-    }
-    notify(matchItem);
-  };
+const handleAddToCart = () => {
+  const matchItem = data.find((item) => item.id === id);
+
+  if (!matchItem) {
+    dispatch(
+      cartReducer({
+        id,
+        image,
+        title: title || "Unknown Product",
+        price,
+        category,
+        oldPrice,
+        rating,
+        rvw,
+        discount,
+        Quantity: 1,
+      })
+    );
+  }
+
+  notify(matchItem);
+};
   return (
     <>
       <div className="w-77.25 mb-16 cursor-pointer">

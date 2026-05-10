@@ -5,7 +5,11 @@ import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 import Container from "../Components/Container";
 import BreadCrumb from "../Components/BreadCrumb";
 import { useSelector, useDispatch } from "react-redux";
-import { decrementReducer, incrementReducer, removeReducer } from "../Slices/ProductSlice";
+import {
+  decrementReducer,
+  incrementReducer,
+  removeReducer,
+} from "../Slices/ProductSlice";
 
 const AddToCart = () => {
   const data = useSelector((state) => state.Allproducts.cart);
@@ -13,12 +17,12 @@ const AddToCart = () => {
   const handleRemove = (id) => {
     dispatch(removeReducer(id));
   };
-  const handleIncrement = (id) =>{
-    dispatch(incrementReducer(id))
-  }
-    const handleDecrement = (id) =>{
-    dispatch(decrementReducer(id))
-  }
+  const handleIncrement = (id) => {
+    dispatch(incrementReducer(id));
+  };
+  const handleDecrement = (id) => {
+    dispatch(decrementReducer(id));
+  };
   return (
     <>
       <Container>
@@ -47,19 +51,26 @@ const AddToCart = () => {
                   </span>
                   <img src={item.thumbnail} alt="" className="w-13.5" />
                 </div>
-                <h4>{`${item.title.slice(0, 10)}....`}</h4>
-                {/*  */}
+                <h4>
+                  {item?.title ? `${item.title.slice(0, 10)}...` : "No title"}
+                </h4>
               </div>
               <h2>${item.price}</h2>
 
               <Flex className="px-3 py-1.5 border rounded-sm items-center gap-3">
                 {item.Quantity}
                 <Flex className="flex-col gap-1">
-                  <FaChevronUp className="text-[10px]" onClick={()=> handleIncrement(item.id)}/>
-                  <FaChevronDown className="text-[10px]" onClick={()=> handleDecrement(item.id)}/>
+                  <FaChevronUp
+                    className="text-[10px]"
+                    onClick={() => handleIncrement(item.id)}
+                  />
+                  <FaChevronDown
+                    className="text-[10px]"
+                    onClick={() => handleDecrement(item.id)}
+                  />
                 </Flex>
               </Flex>
-              <h2>${item.price*item.Quantity}</h2>
+              <h2>${(item.price * item.Quantity).toFixed(2)}</h2>
             </Flex>
           </div>
         ))}

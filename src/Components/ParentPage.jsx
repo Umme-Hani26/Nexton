@@ -1,137 +1,38 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Products from "./Products";
-import watch from "../assets/watch.png";
+import axios from "axios";
 
 const ParentPage = () => {
-  
-  const recommendations = [
-    {
-      id: 1,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 2,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 3,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 4,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 5,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-  ];
+  const [products, setProducts] = useState([])
 
-  const bestSellers = [
-    {
-      id: 6,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 7,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 8,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 9,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-    {
-      id: 10,
-      image: watch,
-      title: "Black Automatic Watch",
-      price: "169.99",
-      category: "Accessories",
-      oldPrice: "199.99",
-      rating: "4.9",
-      rvw: "98",
-      discount: 50,
-    },
-  ];
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const res = await axios.get("https://dummyjson.com/products");
+
+        // API data state এ রাখলাম
+        setProducts(res.data.products);
+      } catch (error) {
+        console.log("API Fetch Error", error);
+      }
+    };
+
+    getProducts();
+  }, []);
+
   return(
     <>
     <div>
         <Products
         title1="Recommendations."
         title2="Best matching products for you"
-        data={recommendations}
+        data={products.slice(5,25)}
         />
 
         <Products
         title1="Best Sellers."
         title2="Best selling of the month"
-        data={bestSellers}
+        data={products}
         />
     </div>
     </>
