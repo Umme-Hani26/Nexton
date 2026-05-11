@@ -61,7 +61,7 @@ const handleAddToCart = () => {
     dispatch(
       cartReducer({
         id,
-        image,
+        thumbnail: image,
         title: title || "Unknown Product",
         price,
         category,

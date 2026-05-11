@@ -6,7 +6,6 @@ import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { BsStars } from "react-icons/bs";
 import Flex from "../Components/Flex";
-import watch from "../assets/watch.png";
 import ProductsCard from "../Components/ProductsCard";
 import Products from "../Components/Products";
 import axios from "axios";
