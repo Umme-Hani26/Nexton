@@ -78,13 +78,13 @@ const handleAddToCart = () => {
 };
   return (
     <>
-      <div className="w-77.25 mb-16 cursor-pointer">
+      <div className="w-full mb-10 cursor-pointer">
         <div className="relative">
           <img
             onClick={handleProductDetails}
             src={image}
             alt=""
-            className="w-full object-cover border border-[#f5f5f5] rounded-2xl"
+            className="w-full h-[250px] sm:h-[300px] object-cover border border-[#f5f5f5] rounded-2xl"
           />
           <div className="bg-[#f5f5f5] rounded-full absolute top-2 left-2 flex py-2 px-3.5 items-center gap-1  text-secondary">
             <CiDiscount1 />
@@ -101,11 +101,11 @@ const handleAddToCart = () => {
         </div>
         <div className="mt-5 px-4">
           <Flex className="justify-between">
-            <h3 className="text-[16px] font-semibold text-primary">{title}</h3>
-            <h3 className="text-[16px] font-semibold text-primary">${price}</h3>
+            <h3 className="text-[15px] sm:text-[16px] font-semibold text-primary line-clamp-1">{title}</h3>
+            <h3 className="text-[15px] sm:text-[16px] font-semibold text-primary">${price}</h3>
           </Flex>
           <Flex className="justify-between">
-            <h4 className="text-[14px] text-secondary">{category}</h4>
+            <h4 className="text-[13px] sm:text-[14px] text-secondary capitalize">{category}</h4>
             <h4 className="text-[14px] text-secondary line-through">
               ${oldPrice}
             </h4>

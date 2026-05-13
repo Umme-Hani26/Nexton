@@ -51,74 +51,75 @@ const Shop = () => {
     <>
       <Container>
         <BreadCrumb />
-        <div className=" flex gap-6.25">
-          <div className="w-71.25">
-            <h4 className="text-[18px] font-semibold text-primary mb-6 mt-9">
-              Categories
-            </h4>
-            <ul className="text-[14px] text-secondary leading-9 border-b-2 pb-6 border-[#e3e5e9] ">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-6.25">
+
+        {/* SIDEBAR */}
+        <div className="w-full lg:w-71.25">
+          <h4 className="text-[18px] font-semibold text-primary mb-6 mt-9">
+            Categories
+          </h4>
+
+          <ul className="text-[14px] text-secondary leading-9 border-b-2 pb-6 border-[#e3e5e9]">
+            <li
+              onClick={() => dispatch(productReducer(shopProducts))}
+              className="cursor-pointer"
+            >
+              All Products
+            </li>
+
+            {categories.map((items, idx) => (
               <li
-                onClick={() => dispatch(productReducer(shopProducts))}
-                className="cursor-pointer"
+                key={idx}
+                onClick={() => handleCategory(items)}
+                className="flex items-center gap-3 capitalize cursor-pointer"
               >
-                All Products
+                <div className="w-5 h-5 border rounded flex items-center justify-center">
+                  {selectedCtegory === items && (
+                    <IoIosCheckbox className="w-5 h-5" />
+                  )}
+                </div>
+                <span>{items}</span>
               </li>
-              {categories.map((items, idx) => (
-                <li
-                  onClick={() => handleCategory(items)}
-                  key={idx}
-                  className="flex items-center gap-3 capitalize cursor-pointer"
-                >
-                  <div className="w-5 h-5 border rounded flex items-center justify-center">
-                    {selectedCtegory === items && (
-                      <IoIosCheckbox className="w-8 h-8 " />
-                    )}
-                  </div>
-                  <span>{items}</span>
-                </li>
-              ))}
-            </ul>
-            <h4 className="text-[18px] font-semibold text-primary mt-8 mb-6">
-              Sort order
-            </h4>
-            <ul className="text-[14px] text-secondary leading-9">
-              <li className="flex items-center gap-3">
+            ))}
+          </ul>
+
+          <h4 className="text-[18px] font-semibold text-primary mt-8 mb-6">
+            Sort order
+          </h4>
+
+          <ul className="text-[14px] text-secondary leading-9">
+            {[
+              "Most Popular",
+              "Best Rating",
+              "Newest",
+              "Price Low - High",
+              "Price High - Low",
+            ].map((item, idx) => (
+              <li key={idx} className="flex items-center gap-3">
                 <div className="w-5 h-5 border rounded-full border-[#94A3B8]"></div>
-                <span>Most Popular</span>
+                <span>{item}</span>
               </li>
-              <li className="flex items-center gap-3">
-                <div className="w-5 h-5 border rounded-full border-[#94A3B8]"></div>
-                <span>Best Rating</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <div className="w-5 h-5 border rounded-full border-[#94A3B8]"></div>
-                <span>Newest</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <div className="w-5 h-5 border rounded-full border-[#94A3B8]"></div>
-                <span>Price Low - Hight</span>
-              </li>
-              <li className="flex items-center gap-3">
-                <div className="w-5 h-5 border rounded-full border-[#94A3B8]"></div>
-                <span>Price Hight - Low</span>
-              </li>
-            </ul>
-          </div>
-          <div>
-            {loading ? (
-              <div className="grid grid-cols-3 gap-5 flex-1">
-                <Skeliton />
-                <Skeliton />
-                <Skeliton />
-                <Skeliton />
-                <Skeliton />
-                <Skeliton />
-              </div>
-            ) : (
-              <Paginate itemsPerPage={6} />
-            )}
-          </div>
+            ))}
+          </ul>
         </div>
+
+        {/* PRODUCTS AREA */}
+        <div className="w-full">
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              <Skeliton />
+              <Skeliton />
+              <Skeliton />
+              <Skeliton />
+              <Skeliton />
+              <Skeliton />
+            </div>
+          ) : (
+            <Paginate itemsPerPage={6} />
+          )}
+        </div>
+
+      </div>
       </Container>
     </>
   );

@@ -86,9 +86,9 @@ const ProductDetails = () => {
       <Container>
         <BreadCrumb />
 
-        <div className="mt-10 flex gap-8 items-start">
-          <div className="flex gap-6 w-201 border-b pb-13 border-[#e0e0e0]">
-            <Flex className="w-35 flex-col gap-4 ">
+        <div className="mt-10 flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+          <div className="flex flex-col lg:flex-row gap-4 lg:gap-6 w-full lg:w-[60%] border-b pb-8 lg:pb-13 border-[#e0e0e0]">
+            <Flex className="w-full sm:w-24 lg:w-35 flex-row lg:flex-col gap-2 lg:gap-4 ">
               {images.map((item, idx) => (
                 <img key={idx} src={item} alt="" />
               ))}
@@ -97,12 +97,12 @@ const ProductDetails = () => {
               <img
                 src={shopProducts.thumbnail}
                 alt=""
-                className="rounded-3xl w-160"
+                className="rounded-3xl w-full object-cover"
               />
             </div>
           </div>
-          <div className="border p-8.25 rounded-3xl border-[#efefef]">
-            <div className="flex gap-36.5">
+          <div className="w-full lg:w-[40%] border p-4 sm:p-6 lg:p-8 rounded-3xl border-[#efefef]">
+            <div className="flex justify-between gap-4">
               <div className="flex gap-1 items-center">
                 <FaStar className="text-[#FBBF24]" />
                 <h4 className="text-[16px] font-medium text-secondary">
@@ -118,28 +118,35 @@ const ProductDetails = () => {
                 </h4>
               </div>
             </div>
-            <div>
-              <h4 className="text-[16px] font-semibold text-primary mt-8">
-                Size: S
-              </h4>
-              <div className="flex">
-                <h4 className="py-2.5 px-7.75 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white w-18 rounded-2xl text-[16px] font-semibold mt-3 flex justify-center">
-                  S
-                </h4>
-                <h4 className="py-2.5 px-7.75 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white w-18 rounded-2xl text-[16px] font-semibold mt-3 flex justify-center">
-                  M
-                </h4>
-                <h4 className="py-2.5 px-7.75 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white w-18 rounded-2xl text-[16px] font-semibold mt-3 flex justify-center">
-                  L
-                </h4>
-                <h4 className="py-2.5 px-7.75 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white w-18 rounded-2xl text-[16px] font-semibold mt-3 flex justify-center">
-                  XL
-                </h4>
-                <h4 className="py-2.5 px-7.75 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white w-18 rounded-2xl text-[16px] font-semibold mt-3 flex justify-center">
-                  2XL
-                </h4>
-              </div>
-            </div>
+          <div>
+  <h4 className="text-[16px] font-semibold text-primary mt-8">
+    Size: S
+  </h4>
+
+  <div className="flex flex-wrap gap-3 mt-3">
+    
+    <h4 className="py-2.5 px-6 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white rounded-2xl text-[16px] font-semibold flex justify-center cursor-pointer">
+      S
+    </h4>
+
+    <h4 className="py-2.5 px-6 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white rounded-2xl text-[16px] font-semibold flex justify-center cursor-pointer">
+      M
+    </h4>
+
+    <h4 className="py-2.5 px-6 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white rounded-2xl text-[16px] font-semibold flex justify-center cursor-pointer">
+      L
+    </h4>
+
+    <h4 className="py-2.5 px-6 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white rounded-2xl text-[16px] font-semibold flex justify-center cursor-pointer">
+      XL
+    </h4>
+
+    <h4 className="py-2.5 px-6 border border-[#efefef] hover:bg-[#0EA5E9] hover:text-white rounded-2xl text-[16px] font-semibold flex justify-center cursor-pointer">
+      2XL
+    </h4>
+
+  </div>
+</div>
             <div className="mt-8 flex items-center">
               <div className="px-3 py-2 bg-[#f3f3f3] w-27.5 rounded-full flex justify-between items-center">
                 <h4 className="w-6 h-6 rounded-full  flex items-center justify-center bg-white border border-[#d6d6d6]">
@@ -187,7 +194,7 @@ const ProductDetails = () => {
           </div>
         </div>
         <div>
-          <div className="w-183.75 mt-13 mb-15">
+          <div className="w-full lg:w-[75%] mt-10 lg:mt-13 mb-10 lg:mb-15">
             <h4 className="text-4xl font-semibold text-primary mb-4">
               {shopProducts.title}
             </h4>
@@ -195,7 +202,7 @@ const ProductDetails = () => {
               {shopProducts.description}
             </p>
           </div>
-          <div className="w-183.75 mt-13 mb-15">
+          <div className="w-full lg:w-[75%] mt-10 lg:mt-13 mb-10 lg:mb-15">
             <h4 className="text-4xl font-semibold text-primary mb-4">
               Fabric + Care
             </h4>
@@ -206,7 +213,7 @@ const ProductDetails = () => {
               Valley Park, Missouri ceased in 1978.
             </p>
           </div>
-          <div className="w-183.75 mt-13 mb-15">
+          <div className="w-full lg:w-[75%] mt-10 lg:mt-13 mb-10 lg:mb-15">
             <h4 className="text-4xl font-semibold text-primary mb-4">
               Sale performance
             </h4>
@@ -218,7 +225,7 @@ const ProductDetails = () => {
             </p>
           </div>
           <div>
-            <div className="w-183.75 mt-13">
+            <div className="w-full lg:w-[75%] mt-10 lg:mt-13 mb-10 lg:mb-15">
               <h4 className="text-4xl font-semibold text-primary mb-4">
                 Keywords
               </h4>
